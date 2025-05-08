@@ -1,42 +1,41 @@
-const container = document.querySelector(".container");
-const qrcodeInput = document.querySelector("#qr-code input");
-const geradorButton = document.querySelector("#qr-code button");
-const qrcodeImg = document.querySelector("#img-qrcode");
-const downloadLink = document.querySelector("#download-link");
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".container");
+    const qrcodeInput = document.querySelector("#qr-code input");
+    const geradorButton = document.querySelector("#qr-code button");
+    const qrcodeImg = document.querySelector("#img-qrcode");
+    const downloadLink = document.querySelector("#download-link");
+    const downloadPng = document.querySelector("#download-png");
+    const qrResult = document.querySelector("#qr-result");
 
-function geradorQrCode() {
-    const qrcodeInputValue = qrcodeInput.value;
+    function gerarQrCode() {
+        const valor = qrcodeInput.value.trim();
+        if (!valor) return;
 
-    if (!qrcodeInputValue) return;
+        geradorButton.innerText = "Gerando...";
 
-    geradorButton.innerText = "Gerando código...";
+        const svgURL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(valor)}&format=svg`;
+        const pngURL = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(valor)}&format=png`;
 
-    // Gera QR code em SVG
-    const svgURL = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrcodeInputValue}&format=svg`;
-    
-    // Atribui a URL ao src da imagem e ao href para download
-    qrcodeImg.src = svgURL;
-    downloadLink.href = svgURL;
+        qrcodeImg.src = svgURL;
+        downloadLink.href = svgURL;
+        downloadPng.href = pngURL;
 
-    qrcodeImg.addEventListener("load", () => {
-        container.classList.add("active");
-        geradorButton.innerText = "Gerar QR Code";
+        qrResult.style.display = "block";
+
+        qrcodeImg.addEventListener("load", () => {
+            geradorButton.innerText = "Gerar QR Code";
+        });
+    }
+
+    geradorButton.addEventListener("click", gerarQrCode);
+
+    qrcodeInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") gerarQrCode();
     });
-}
 
-geradorButton.addEventListener("click", () => {
-    geradorQrCode();
-});
-
-qrcodeInput.addEventListener("keydown", (e) => {
-    if (e.code === "Enter") {
-        geradorQrCode();
-    }
-});
-
-qrcodeInput.addEventListener("keyup", (e) => {
-    if (!qrcodeInput.value) {
-        container.classList.remove("active");
-        geradorButton.innerText = "Gerar QR Code";
-    }
+    qrcodeInput.addEventListener("input", () => {
+        if (!qrcodeInput.value.trim()) {
+            qrResult.style.display = "none";
+        }
+    });
 });

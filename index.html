@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerado QR Code</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de QR Code</title>
+
     <!-- Fonte Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <!-- CSS-->
-    <link rel="stylesheet" href="CSS/style.css"/>
-    <!-- js -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="CSS/style.css" />
+
+    <!-- JavaScript Externo -->
     <script src="js/script.js" defer></script>
 </head>
+
 <body>
-    <div class="container">
+    <main class="container">
         <header id="qr-header">
             <h1>Gerador de QR Code</h1>
-            <p>Insira uma URL OU texto, para criar um QR Code</p>
+            <p>Insira uma URL ou texto para gerar seu código QR</p>
         </header>
-        <div id="qr-code">
-            <input type="text" placeholder="Digita a URL ou texto"/>
-            <button>Gerar QR Code</button>
+
+        <section id="qr-code">
+            <input type="text" placeholder="Digite a URL ou texto" aria-label="Campo para URL ou texto" />
+            <button id="generate-btn">Gerar QR Code</button>
+        </section>
+
+        <div id="qr-result">
+            <img id="img-qrcode" alt="QR Code gerado" />
+            <div class="download-buttons">
+                <a id="download-link" download="qrcode.svg" target="_blank">
+                    <button>Baixar SVG</button>
+                </a>
+                <a id="download-png" download="qrcode.png" target="_blank">
+                    <button>Baixar PNG</button>
+                </a>
+            </div>
         </div>
-        <a id="download-link" download="qrcode.svg" target="_blank">
-            <img id="img-qrcode" />
-        </a>
-    </div>
+    </main>
 </body>
+
 </html>
